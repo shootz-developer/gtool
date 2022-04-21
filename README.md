@@ -1,2 +1,9 @@
 # gtool
-golang的可复用的公共工具类
+## golang的可复用的公共工具类
+### client
+1. es
+2. etcd
+3. redis
+4. mysql
+- 自定义一个mysql的proxy
+- 初始化mysql客户端
