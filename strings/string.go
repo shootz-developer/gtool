@@ -1,6 +1,14 @@
 package strings
 
-import "database/sql"
+import (
+	"crypto/md5"
+	"database/sql"
+	"encoding/base64"
+	"encoding/hex"
+	"math/rand"
+	"strings"
+	"time"
+)
 
 // NullStringToString nullstring转换成string
 func NullStringToString(nullStrings []sql.NullString) []string {
@@ -11,4 +19,52 @@ func NullStringToString(nullStrings []sql.NullString) []string {
 		}
 	}
 	return strings
+}
+
+// SplitString 返回以partition分割的字符串数组
+func SplitString(str, partition string) []string {
+	splitStr := strings.Split(str, partition)
+	return splitStr
+}
+
+// CaclMD5 返回str内容对应md5值(16进制表示)
+func CaclMD5(str string) string {
+	h := md5.New()
+	h.Write([]byte(str))
+	return hex.EncodeToString(h.Sum(nil))
+}
+
+// FilterEmptyString 过滤空字符串
+func FilterEmptyString(src []string) []string {
+	dest := make([]string, 0, len(src))
+	for _, s := range src {
+		if s == "" {
+			continue
+		}
+
+		dest = append(dest, s)
+	}
+	return dest
+}
+
+// Base64Encode 对数据进行 base64 编码
+func Base64Encode(s string) string {
+	return base64.StdEncoding.EncodeToString([]byte(s))
+}
+
+// Base64Decode 对数据进行 base64 解码
+func Base64Decode(s string) (string, error) {
+	rs, err := base64.StdEncoding.DecodeString(s)
+	return string(rs), err
+}
+
+// GetRandomString 随机生成给定长度的字符串
+func GetRandomString(n int) string {
+	var letterRunes = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+	rand.Seed(time.Now().UnixNano())
+	b := make([]rune, n)
+	for i := range b {
+		b[i] = letterRunes[rand.Intn(len(letterRunes))]
+	}
+	return string(b)
 }
