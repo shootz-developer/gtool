@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/shootz-developer/gtool/constant"
+
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -21,7 +23,7 @@ type MysqlProxy struct {
 func NewMysqlClient(proxy MysqlProxy) (*sql.DB, error) {
 	sourceName := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", proxy.Account, proxy.Password,
 		proxy.IP, proxy.Port, proxy.DBName)
-	db, err := sql.Open("mysql", sourceName)
+	db, err := sql.Open(constant.MySQLDrive, sourceName)
 	if err != nil {
 		log.Fatalf("New Mysql Client Error %+v", err)
 		return nil, err

@@ -2,9 +2,12 @@ package strings
 
 import (
 	"crypto/md5"
+	crand "crypto/rand"
 	"database/sql"
 	"encoding/base64"
 	"encoding/hex"
+	"fmt"
+	"math/big"
 	"math/rand"
 	"strings"
 	"time"
@@ -67,4 +70,16 @@ func GetRandomString(n int) string {
 		b[i] = letterRunes[rand.Intn(len(letterRunes))]
 	}
 	return string(b)
+}
+
+// GetUniqueID 生成UniqueID方法
+func GetUniqueID() string {
+	// 当前毫秒时间戳
+	timestamp := time.Now().UnixNano() / 1000000
+	s1, _ := crand.Int(crand.Reader, big.NewInt(10))
+	s2, _ := crand.Int(crand.Reader, big.NewInt(10))
+
+	seqNo := timestamp * (s1.Int64() + 1) * (s2.Int64() + 1)
+	uniqueID := fmt.Sprintf("%d", seqNo)
+	return uniqueID
 }

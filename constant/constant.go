@@ -12,3 +12,7 @@ const (
 	TrueFlag  = 1 // 真值
 	FalseFlag = 0 // 假值
 )
+
+const (
+	MySQLDrive = "mysql" // mysql驱动
+)

@@ -9,5 +9,7 @@ require (
 	github.com/olivere/elastic/v7 v7.0.32
 	github.com/onsi/ginkgo v1.16.5 // indirect
 	github.com/onsi/gomega v1.19.0 // indirect
+	github.com/robfig/cron v1.2.0
 	go.etcd.io/etcd/client/v3 v3.5.3
+	golang.org/x/text v0.3.7
 )
