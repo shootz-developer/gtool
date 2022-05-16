@@ -7,10 +7,13 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"fmt"
+	"math"
 	"math/big"
 	"math/rand"
+	"reflect"
 	"strings"
 	"time"
+	"unsafe"
 )
 
 // NullStringToString nullstring转换成string
@@ -22,6 +25,15 @@ func NullStringToString(nullStrings []sql.NullString) []string {
 		}
 	}
 	return strings
+}
+
+// TrimSpaceSlice 将src中元素逐个调用strings.TrimSpace。
+func TrimSpaceSlice(src []string) []string {
+	dest := make([]string, 0, len(src))
+	for _, s := range src {
+		dest = append(dest, strings.TrimSpace(s))
+	}
+	return dest
 }
 
 // SplitString 返回以partition分割的字符串数组
@@ -82,4 +94,65 @@ func GetUniqueID() string {
 	seqNo := timestamp * (s1.Int64() + 1) * (s2.Int64() + 1)
 	uniqueID := fmt.Sprintf("%d", seqNo)
 	return uniqueID
+}
+
+// IsStringSliceEqual 返回两个字符串列表是否相等。都为nil，返回true。其中之一为nil，返回false。
+// 都不是nil，则长度内容顺序都一致才返回true。
+func IsStringSliceEqual(lh, rh []string) bool {
+	if lh == nil && rh == nil {
+		return true
+	}
+
+	if lh == nil || rh == nil {
+		return false
+	}
+
+	if len(lh) != len(rh) {
+		return false
+	}
+
+	for k, v := range lh {
+		if v != rh[k] {
+			return false
+		}
+	}
+	return true
+}
+
+// SplitSlice 将slice按长度batchSize分成多段
+// batchHandler 返回false，表示退出执行
+func SplitSlice(slice interface{}, batchSize int, batchHandler func(batch interface{}) bool) {
+	if batchHandler == nil {
+		return
+	}
+
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		panic("argument not a slice")
+	}
+
+	blocks := int(math.Ceil(float64(rv.Len()) / float64(batchSize)))
+	for i := 0; i < blocks; i++ {
+		begin := i * batchSize
+		end := begin + batchSize
+		if end > rv.Len() {
+			end = rv.Len()
+		}
+
+		batch := rv.Slice(begin, end)
+		isContinue := batchHandler(batch.Interface())
+		if !isContinue {
+			break
+		}
+	}
+}
+
+// BytesToString copy-free的[]byte转string，但注意使用场景限制，不可滥用。
+func BytesToString(bytes []byte) string {
+	var s string
+	sliceHeader := (*reflect.SliceHeader)(unsafe.Pointer(&bytes))
+	stringHeader := (*reflect.StringHeader)(unsafe.Pointer(&s))
+	stringHeader.Data = sliceHeader.Data
+	stringHeader.Len = sliceHeader.Len
+	return s
 }

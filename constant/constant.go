@@ -9,8 +9,20 @@ const (
 )
 
 const (
-	TrueFlag  = 1 // 真值
-	FalseFlag = 0 // 假值
+	// SepFlag 竖线分割符
+	SepFlag = "|"
+	// Comma 逗号
+	Comma = ","
+	// Hyphen 连字符
+	Hyphen = "-"
+	// Colon 冒号
+	Colon = ":"
+	// CommConfigPath 通用配置文件路径
+	CommConfigPath = "comm.yaml"
+	// TrueFlag 表示真的数值
+	TrueFlag = 1
+	// FalseFlag 表示假的数值
+	FalseFlag = 0
 )
 
 const (
