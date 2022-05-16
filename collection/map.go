@@ -1,6 +1,10 @@
 package collection
 
-import "reflect"
+import (
+	"reflect"
+
+	"github.com/mitchellh/mapstructure"
+)
 
 // InsertStringMap 插入map的简单封装，主要是判断map是否是空的，如果为空就构造一个map
 func InsertStringMap(srcMap map[string]string, key, value string) map[string]string {
@@ -26,4 +30,20 @@ func StructToMap(stu interface{}) map[string]interface{} {
 	}
 
 	return data
+}
+
+// MapToStruct 强类型map转换struct
+func MapToStruct(input interface{}, output interface{}, tags ...string) error {
+	tag := ""
+	if len(tags) >= 1 {
+		tag = tags[0]
+	}
+	decoder, err := mapstructure.NewDecoder(&mapstructure.DecoderConfig{
+		TagName: tag,
+		Result:  output,
+	})
+	if err != nil {
+		return err
+	}
+	return decoder.Decode(input)
 }
