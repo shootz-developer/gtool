@@ -1,14 +1,22 @@
 package constant
 
+// 返回1xxxx -> 请求成功
 const (
 	Success          = 10000 // 请求成功的时候的返回值
-	Fail             = 10001 // 请求失败的时候的返回值
+	UnknowFail       = 10001 // 未知错误
 	DataEmpty        = 10002 // 请求的数据为空时候的返回值
 	ParameterMiss    = 10003 // 请求所需的参数部分缺失
 	ParameterInvalid = 10004 // 请求的参数存在不合法的情况
-	RedisError       = 10005 // Redis出现错误
-	MySQLError       = 10006 // MySQL出现错误
-	ESError          = 10007 // ES出现错误
+)
+
+// 返回2xxxx -> MySQL错误
+const (
+	MySQLQueryError  = 20000 // MySQL的查询错误
+	MySQLScanError   = 20001 // MySQL在Scan时候的错误
+	MySQLInsertError = 20002 // MySQL的插入错误
+	MySQLDeleteError = 20003 // MySQL的删除错误
+	MySQLUpdateError = 20004 // MySQL的更新错误
+	MySQLCountError  = 20004 // MySQL的计数错误
 )
 
 const (
