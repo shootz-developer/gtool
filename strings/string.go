@@ -14,6 +14,8 @@ import (
 	"strings"
 	"time"
 	"unsafe"
+
+	"github.com/antlabs/strsim"
 )
 
 // NullStringToString nullstring转换成string
@@ -155,4 +157,23 @@ func BytesToString(bytes []byte) string {
 	stringHeader.Data = sliceHeader.Data
 	stringHeader.Len = sliceHeader.Len
 	return s
+}
+
+// NullStr 判断是否是空字符串
+func NullStr(str string) bool {
+	return len([]rune(str)) == 0
+}
+
+// NullStrWithDefault 空字符串赋予默认值
+func NullStrWithDefault(str string, defaultStr string) (retStr string) {
+	if len([]rune(str)) == 0 {
+		return defaultStr
+	}
+	return str
+}
+
+// Similarity 计算两个字符串的相似度
+func Similarity(s1 string, s2 string) float64 {
+	sim := strsim.Compare(s1, s2)
+	return sim
 }

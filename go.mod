@@ -4,6 +4,7 @@ go 1.16
 
 require (
 	github.com/Shopify/sarama v1.33.0
+	github.com/antlabs/strsim v0.0.2
 	github.com/bsm/sarama-cluster v2.1.15+incompatible
 	github.com/gin-gonic/gin v1.7.7
 	github.com/go-redis/redis v6.15.9+incompatible
@@ -17,4 +18,5 @@ require (
 	github.com/satori/go.uuid v1.2.0
 	go.etcd.io/etcd/client/v3 v3.5.3
 	golang.org/x/text v0.3.7
+	gopkg.in/yaml.v2 v2.4.0
 )
