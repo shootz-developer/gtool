@@ -6,15 +6,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// GetIP 获取请求方的IP地址
-func GetIP(req *http.Request) string {
-	forwarded := req.Header.Get("X-FORWARDED-FOR")
-	if forwarded != "" {
-		return forwarded
-	}
-	return req.RemoteAddr
-}
-
 // Cors 解决跨域问题
 func Cors() gin.HandlerFunc {
 	return func(c *gin.Context) {

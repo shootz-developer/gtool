@@ -3,10 +3,10 @@ package constant
 // 返回1xxxx -> 请求成功
 const (
 	Success          = 10000 // 请求成功的时候的返回值
-	UnknowFail       = 10001 // 未知错误
-	DataEmpty        = 10002 // 请求的数据为空时候的返回值
-	ParameterMiss    = 10003 // 请求所需的参数部分缺失
-	ParameterInvalid = 10004 // 请求的参数存在不合法的情况
+	DataEmpty        = 10001 // 请求的数据为空时候的返回值
+	ParameterMiss    = 10002 // 请求所需的参数部分缺失
+	ParameterInvalid = 10003 // 请求的参数存在不合法的情况
+	OpenIDEmpty      = 10004 // OpenID 为空
 )
 
 // 返回2xxxx -> MySQL错误
