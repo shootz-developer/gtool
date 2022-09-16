@@ -19,6 +19,12 @@ const (
 	MySQLCountError  = 20004 // MySQL的计数错误
 )
 
+// 返回3xxxx -> 其他类型的错误
+const (
+	StrconvAtoiError = 30000 // 类型转换错误（主要是string转int）
+	ParseTimeError   = 30001 // 日期类型的错误
+)
+
 const (
 	// SepFlag 竖线分割符
 	SepFlag = "|"
