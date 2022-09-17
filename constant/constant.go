@@ -11,12 +11,13 @@ const (
 
 // 返回2xxxx -> MySQL错误
 const (
-	MySQLQueryError  = 20000 // MySQL的查询错误
-	MySQLScanError   = 20001 // MySQL在Scan时候的错误
-	MySQLInsertError = 20002 // MySQL的插入错误
-	MySQLDeleteError = 20003 // MySQL的删除错误
-	MySQLUpdateError = 20004 // MySQL的更新错误
-	MySQLCountError  = 20004 // MySQL的计数错误
+	MySQLQueryError          = 20000 // MySQL的查询错误
+	MySQLScanError           = 20001 // MySQL在Scan时候的错误
+	MySQLInsertError         = 20002 // MySQL的插入错误
+	MySQLDeleteError         = 20003 // MySQL的删除错误
+	MySQLUpdateError         = 20004 // MySQL的更新错误
+	MySQLCountError          = 20004 // MySQL的计数错误
+	MysqlCountAffectRowError = 20005
 )
 
 // 返回3xxxx -> 其他类型的错误
@@ -48,6 +49,8 @@ const (
 
 const (
 	MySQLDrive = "mysql" // mysql驱动
+
+	SuccessString = "Success"
 )
 
 type Weekday int
@@ -61,3 +64,15 @@ const (
 	Friday
 	Saturday
 )
+
+var WeekDayMap = map[string]string{
+	"Monday":    "周一",
+	"Tuesday":   "周二",
+	"Wednesday": "周三",
+	"Thursday":  "周四",
+	"Friday":    "周五",
+	"Saturday":  "周六",
+	"Sunday":    "周日",
+}
+
+const StandardTime = "2006-01-02 15:04:05" // StandardTime 标准时间

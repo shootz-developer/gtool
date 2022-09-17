@@ -15,8 +15,6 @@ require (
 	github.com/onsi/gomega v1.19.0 // indirect
 	github.com/prometheus/common v0.26.0
 	github.com/robfig/cron v1.2.0
-	github.com/satori/go.uuid v1.2.0
 	go.etcd.io/etcd/client/v3 v3.5.3
 	golang.org/x/text v0.3.7
-	gopkg.in/yaml.v2 v2.4.0
 )
