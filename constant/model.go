@@ -2,15 +2,15 @@ package constant
 
 // ErrMessage 错误返回的结构体
 type ErrMessage struct {
-	Err     error
-	ErrCode int
+	Err     error // 错误
+	ErrCode int   // 错误码
 }
 
 // MysqlProxy mysql的proxy
 type MysqlProxy struct {
-	Account  string
-	Password string
-	Host     string
-	Port     string
-	DBName   string
+	Account  string // 账号
+	Password string // 密码
+	Host     string // IP
+	Port     string // 端口
+	DBName   string // mysql名称
 }

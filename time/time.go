@@ -111,8 +111,8 @@ func DayAddOrSub(t time.Time, num int64) time.Time {
 	return t.Add(m)
 }
 
-// dateFormat 日期格式化处理
-func dateFormat(date string) string {
+// DateFormat 日期格式化处理
+func DateFormat(date string) string {
 	newDate := ""
 	for i, _ := range date {
 		if date[i] == 'T' {
@@ -127,10 +127,10 @@ func dateFormat(date string) string {
 	return newDate
 }
 
-// DateUtilSingle 时间格式化处理工具，将开始时间和结束时间统一成一个时间
-func DateUtilSingle(start, end string) string {
-	st, _ := time.Parse(constant.StandardTime, dateFormat(start))
-	ed, _ := time.Parse(constant.StandardTime, dateFormat(end))
+// DateUtil 时间格式化处理工具，将开始时间和结束时间统一成一个时间
+func DateUtil(start, end string) string {
+	st, _ := time.Parse(constant.StandardTime, DateFormat(start))
+	ed, _ := time.Parse(constant.StandardTime, DateFormat(end))
 	time := fmt.Sprintf("%d", st.Year())
 	if int(st.Month()) < 10 {
 		time = fmt.Sprintf("%s-0%d", time, int(st.Month()))

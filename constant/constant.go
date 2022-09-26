@@ -11,19 +11,22 @@ const (
 
 // 返回2xxxx -> MySQL错误
 const (
-	MySQLQueryError          = 20000 // MySQL的查询错误
-	MySQLScanError           = 20001 // MySQL在Scan时候的错误
-	MySQLInsertError         = 20002 // MySQL的插入错误
-	MySQLDeleteError         = 20003 // MySQL的删除错误
-	MySQLUpdateError         = 20004 // MySQL的更新错误
-	MySQLCountError          = 20004 // MySQL的计数错误
-	MysqlCountAffectRowError = 20005
+	MySQLQueryError     = 20000 // MySQL的查询错误
+	MySQLScanError      = 20001 // MySQL在Scan时候的错误
+	MySQLInsertError    = 20002 // MySQL的插入错误
+	MySQLDeleteError    = 20003 // MySQL的删除错误
+	MySQLUpdateError    = 20004 // MySQL的更新错误
+	MySQLCountError     = 20004 // MySQL的计数错误
+	MysqlAffectRowError = 20005 // MySQL获取影响行数错误
 )
 
 // 返回3xxxx -> 其他类型的错误
 const (
-	StrconvAtoiError = 30000 // 类型转换错误（主要是string转int）
-	ParseTimeError   = 30001 // 日期类型的错误
+	StrconvAtoiError   = 30000 // 类型转换错误（主要是string转int）
+	ParseTimeError     = 30001 // 日期类型的错误
+	JsonUnmarshalError = 30002
+	JsonMarshalError   = 30003
+	UnknowError        = 30004
 )
 
 const (
@@ -51,6 +54,14 @@ const (
 	MySQLDrive = "mysql" // mysql驱动
 
 	SuccessString = "Success"
+
+	StandardTime = "2006-01-02 15:04:05" // StandardTime 标准时间
+
+	DefaultPage  = 0 // 默认的页
+	DefaultLimit = 5 // 默认的页大小
+
+	MethodPost = "POST"
+	MethodGet  = "GET"
 )
 
 type Weekday int
@@ -74,5 +85,3 @@ var WeekDayMap = map[string]string{
 	"Saturday":  "周六",
 	"Sunday":    "周日",
 }
-
-const StandardTime = "2006-01-02 15:04:05" // StandardTime 标准时间
