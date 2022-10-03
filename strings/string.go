@@ -7,6 +7,7 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"fmt"
+	"github.com/shootz-developer/gtool/constant"
 	"math"
 	"math/big"
 	"math/rand"
@@ -176,4 +177,14 @@ func NullStrWithDefault(str string, defaultStr string) (retStr string) {
 func Similarity(s1 string, s2 string) float64 {
 	sim := strsim.Compare(s1, s2)
 	return sim
+}
+
+// StringFilter 字符串过滤，将1,2,3,4,5 -> '1','2','3','4','5'
+func StringFilter(ids string) string {
+	splitString := strings.Split(ids, constant.Comma)
+	videos := fmt.Sprintf("'%s'", splitString[0])
+	for i := 1; i < len(splitString); i++ {
+		videos = fmt.Sprintf("%s,'%s'", videos, splitString[i])
+	}
+	return videos
 }

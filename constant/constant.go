@@ -62,6 +62,8 @@ const (
 
 	MethodPost = "POST"
 	MethodGet  = "GET"
+
+	RetryTimes = 3
 )
 
 type Weekday int
