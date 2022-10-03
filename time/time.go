@@ -180,7 +180,7 @@ func FormatStartTime(startTime string) string {
 	if time.Month() < 10 {
 		formatTime = fmt.Sprintf("%s-0%d", formatTime, time.Month())
 	} else {
-		formatTime = fmt.Sprintf("%s%d-", formatTime, time.Month())
+		formatTime = fmt.Sprintf("%s-%d", formatTime, time.Month())
 	}
 
 	if time.Day() < 10 {
