@@ -27,6 +27,31 @@ const (
 	StringToTimeTow = "2006-01-02"
 )
 
+var timeFormat map[string]string
+
+func init() {
+	timeFormat = map[string]string{
+		"yyyy-mm-dd hh:mm:ss": "2006-01-02 15:04:05",
+		"yyyy-mm-dd hh:mm":    "2006-01-02 15:04",
+		"yyyy-mm-dd hh":       "2006-01-02 15:04",
+		"yyyy-mm-dd":          "2006-01-02",
+		"yyyy-mm":             "2006-01",
+		"mm-dd":               "01-02",
+		"dd-mm-yy hh:mm:ss":   "02-01-06 15:04:05",
+		"yyyy/mm/dd hh:mm:ss": "2006/01/02 15:04:05",
+		"yyyy/mm/dd hh:mm":    "2006/01/02 15:04",
+		"yyyy/mm/dd hh":       "2006/01/02 15",
+		"yyyy/mm/dd":          "2006/01/02",
+		"yyyy/mm":             "2006/01",
+		"mm/dd":               "01/02",
+		"dd/mm/yy hh:mm:ss":   "02/01/06 15:04:05",
+		"yyyy":                "2006",
+		"mm":                  "01",
+		"hh:mm:ss":            "15:04:05",
+		"mm:ss":               "04:05",
+	}
+}
+
 // TodayBeginTimestamp 返回今天零点的时间戳
 func TodayBeginTimestamp() int64 {
 	now := time.Now()
@@ -234,4 +259,106 @@ func FormatEndTime(startTime, endTime string) string {
 	}
 
 	return formatTime
+}
+
+// AddMinute 加减分钟数
+func AddMinute(t time.Time, minute int64) time.Time {
+	return t.Add(time.Minute * time.Duration(minute))
+}
+
+// GetZeroHourTimestamp 获得开始时间时间戳
+func GetZeroHourTimestamp() int64 {
+	ts := time.Now().Format("2006-01-02")
+	t, _ := time.Parse("2006-01-02", ts)
+	return t.UTC().Unix() - 8*3600
+}
+
+// GetNightTimestamp 获得晚上时间时间戳
+func GetNightTimestamp() int64 {
+	return GetZeroHourTimestamp() + 86400 - 1
+}
+
+// FormatTimeToStr 将时间转换为字符串
+func FormatTimeToStr(t time.Time, format string) string {
+	return t.Format(timeFormat[format])
+}
+
+// FormatStrToTime 将字符串转换为时间
+func FormatStrToTime(str, format string) (time.Time, error) {
+	v, ok := timeFormat[format]
+	if !ok {
+		return time.Time{}, fmt.Errorf("format %s not found", format)
+	}
+
+	return time.Parse(v, str)
+}
+
+// BeginOfMinute 一天开始的那分钟
+func BeginOfMinute(t time.Time) time.Time {
+	y, m, d := t.Date()
+	return time.Date(y, m, d, t.Hour(), t.Minute(), 0, 0, t.Location())
+}
+
+// EndOfMinute  一天结束的那分钟
+func EndOfMinute(t time.Time) time.Time {
+	y, m, d := t.Date()
+	return time.Date(y, m, d, t.Hour(), t.Minute(), 59, int(time.Second-time.Nanosecond), t.Location())
+}
+
+// BeginOfHour 一天开始的那小时
+func BeginOfHour(t time.Time) time.Time {
+	y, m, d := t.Date()
+	return time.Date(y, m, d, t.Hour(), 0, 0, 0, t.Location())
+}
+
+// EndOfHour 一天结束的那小时
+func EndOfHour(t time.Time) time.Time {
+	y, m, d := t.Date()
+	return time.Date(y, m, d, t.Hour(), 59, 59, int(time.Second-time.Nanosecond), t.Location())
+}
+
+// BeginOfDay 一天开始
+func BeginOfDay(t time.Time) time.Time {
+	y, m, d := t.Date()
+	return time.Date(y, m, d, 0, 0, 0, 0, t.Location())
+}
+
+// EndOfDay 一天结束
+func EndOfDay(t time.Time) time.Time {
+	y, m, d := t.Date()
+	return time.Date(y, m, d, 23, 59, 59, int(time.Second-time.Nanosecond), t.Location())
+}
+
+// BeginOfWeek 一周开始，从周日算
+func BeginOfWeek(t time.Time) time.Time {
+	y, m, d := t.AddDate(0, 0, 0-int(BeginOfDay(t).Weekday())).Date()
+	return time.Date(y, m, d, 0, 0, 0, 0, t.Location())
+}
+
+// EndOfWeek 一周结束，从周六算
+func EndOfWeek(t time.Time) time.Time {
+	y, m, d := BeginOfWeek(t).AddDate(0, 0, 7).Add(-time.Nanosecond).Date()
+	return time.Date(y, m, d, 23, 59, 59, int(time.Second-time.Nanosecond), t.Location())
+}
+
+// BeginOfMonth 一个月的开始
+func BeginOfMonth(t time.Time) time.Time {
+	y, m, _ := t.Date()
+	return time.Date(y, m, 1, 0, 0, 0, 0, t.Location())
+}
+
+// EndOfMonth 一个月的结束
+func EndOfMonth(t time.Time) time.Time {
+	return BeginOfMonth(t).AddDate(0, 1, 0).Add(-time.Nanosecond)
+}
+
+// BeginOfYear 一年的开始
+func BeginOfYear(t time.Time) time.Time {
+	y, _, _ := t.Date()
+	return time.Date(y, time.January, 1, 0, 0, 0, 0, t.Location())
+}
+
+// EndOfYear 一年的结束
+func EndOfYear(t time.Time) time.Time {
+	return BeginOfYear(t).AddDate(1, 0, 0).Add(-time.Nanosecond)
 }
