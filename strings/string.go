@@ -10,7 +10,6 @@ import (
 	"github.com/shootz-developer/gtool/constant"
 	"math"
 	"math/big"
-	"math/rand"
 	"reflect"
 	"strings"
 	"time"
@@ -74,17 +73,6 @@ func Base64Encode(s string) string {
 func Base64Decode(s string) (string, error) {
 	rs, err := base64.StdEncoding.DecodeString(s)
 	return string(rs), err
-}
-
-// GetRandomString 随机生成给定长度的字符串
-func GetRandomString(n int) string {
-	var letterRunes = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
-	rand.Seed(time.Now().UnixNano())
-	b := make([]rune, n)
-	for i := range b {
-		b[i] = letterRunes[rand.Intn(len(letterRunes))]
-	}
-	return string(b)
 }
 
 // GetUniqueID 生成UniqueID方法
