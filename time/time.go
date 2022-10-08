@@ -362,3 +362,18 @@ func BeginOfYear(t time.Time) time.Time {
 func EndOfYear(t time.Time) time.Time {
 	return BeginOfYear(t).AddDate(1, 0, 0).Add(-time.Nanosecond)
 }
+
+// FomratTime 格式化时间
+func FomratTime(unformatTime string) string {
+	fomatTime := ""
+	for i := 0; i < len(unformatTime); i++ {
+		if unformatTime[i] == 'T' {
+			fomatTime = fmt.Sprintf("%s ", fomatTime)
+		} else if unformatTime[i] == 'Z' {
+			continue
+		} else {
+			fomatTime = fmt.Sprintf("%s%c", fomatTime, unformatTime[i])
+		}
+	}
+	return fomatTime
+}
