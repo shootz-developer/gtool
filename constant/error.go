@@ -26,8 +26,9 @@ const (
 const (
 	StrconvAtoiError = 30000 // 类型转换错误（主要是string转int）
 	ParseTimeError   = 30001 // 日期类型的错误
-	ReadFileError    = 30002
-	UnknowError      = 30003
+	ReadFileError    = 30002 // 读取文件错误
+	UnknowError      = 30003 // 未知错误
+	UnknowOwner      = 30004 // 不是球馆管理员返回码
 )
 
 // 返回4xxxx -> json错误

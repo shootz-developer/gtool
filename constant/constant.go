@@ -19,6 +19,9 @@ const (
 
 	TypeAdd   = 1
 	TypeMinus = -1
+
+	StartTime = "00:00:00"
+	EndTime   = "23:59:59"
 )
 
 const (
@@ -58,3 +61,15 @@ var WeekDayMap = map[string]string{
 	"Saturday":  "周六",
 	"Sunday":    "周日",
 }
+
+const (
+	DayVIP     = "日会员"
+	MonthVIP   = "月会员"
+	QuarterVIP = "季会员"
+	YearVIP    = "年会员"
+
+	DayAllVIP     = "日大会员"
+	MonthAllVIP   = "月大会员"
+	QuarterAllVIP = "季大会员"
+	YearAllVIP    = "年大会员"
+)

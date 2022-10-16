@@ -1,6 +1,10 @@
 package http
 
 import (
+	"crypto/tls"
+	"encoding/json"
+	"io/ioutil"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -24,4 +28,33 @@ func Cors() gin.HandlerFunc {
 		}
 		c.Next()
 	}
+}
+
+// DoGet get请求
+func DoGet(req *http.Request) (map[string]string, error) {
+	req.Header.Set("Content-Type", "application/json")
+	client := &http.Client{
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{
+				InsecureSkipVerify: true,
+			},
+		},
+	}
+
+	rsp, err := client.Do(req)
+	if err != nil {
+		log.Printf("getToken client.Do err: [%+v]", err)
+		return nil, err
+	}
+	defer rsp.Body.Close()
+
+	body, _ := ioutil.ReadAll(rsp.Body)
+	rspMap := make(map[string]string)
+	err = json.Unmarshal(body, &rspMap)
+	if err != nil {
+		log.Printf("Unmarshal rsp body err:[%+v]", err)
+		return nil, nil
+	}
+
+	return rspMap, nil
 }
