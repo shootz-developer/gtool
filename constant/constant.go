@@ -31,8 +31,8 @@ const (
 
 	StandardTime = "2006-01-02 15:04:05" // StandardTime 标准时间
 
-	DefaultPage  = 0 // 默认的页
-	DefaultLimit = 5 // 默认的页大小
+	DefaultPage  = 0  // 默认的页
+	DefaultLimit = 10 // 默认的页大小
 
 	MethodPost = "POST"
 	MethodGet  = "GET"
@@ -72,4 +72,19 @@ const (
 	MonthAllVIP   = "月大会员"
 	QuarterAllVIP = "季大会员"
 	YearAllVIP    = "年大会员"
+
+	AllIncome    = "所有收入"
+	AllVIPIncome = "大会员收入"
+)
+
+const (
+	Consumer = "Consumer" // C端的类型
+	Business = "Business" // B端的类型
+)
+
+const (
+	DefaultMembership       = 0
+	DefaultMergeLimitMember = 2
+	DefaultMaxMerge         = 6
+	DefaultDownloadLimit    = 20
 )
