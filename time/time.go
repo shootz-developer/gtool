@@ -22,7 +22,7 @@ const (
 	Hour            = "15"
 	Minute          = "04"
 	Second          = "05"
-	Complete        = "2006-01-02 15:05:05"
+	Complete        = "2006-01-02 15:04:05"
 	StringToTimeOne = "2006-01-02 15:04:05"
 	StringToTimeTow = "2006-01-02"
 )
