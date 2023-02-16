@@ -29,6 +29,7 @@ const (
 	ReadFileError    = 30002 // 读取文件错误
 	UnknowError      = 30003 // 未知错误
 	UnknowOwner      = 30004 // 不是球馆管理员返回码
+	InfoNotMatch     = 30005 // 信息不匹配
 )
 
 // 返回4xxxx -> json错误

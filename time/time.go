@@ -25,6 +25,7 @@ const (
 	Complete        = "2006-01-02 15:04:05"
 	StringToTimeOne = "2006-01-02 15:04:05"
 	StringToTimeTow = "2006-01-02"
+	GMTFormatTime   = "Mon, 02 Jan 2006 15:04:05"
 )
 
 var timeFormat map[string]string
@@ -363,17 +364,17 @@ func EndOfYear(t time.Time) time.Time {
 	return BeginOfYear(t).AddDate(1, 0, 0).Add(-time.Nanosecond)
 }
 
-// FomratTime 格式化时间
-func FomratTime(unformatTime string) string {
-	fomatTime := ""
+// FormatTime 格式化时间
+func FormatTime(unformatTime string) string {
+	formatTime := ""
 	for i := 0; i < len(unformatTime); i++ {
 		if unformatTime[i] == 'T' {
-			fomatTime = fmt.Sprintf("%s ", fomatTime)
+			formatTime = fmt.Sprintf("%s ", formatTime)
 		} else if unformatTime[i] == 'Z' {
 			continue
 		} else {
-			fomatTime = fmt.Sprintf("%s%c", fomatTime, unformatTime[i])
+			formatTime = fmt.Sprintf("%s%c", formatTime, unformatTime[i])
 		}
 	}
-	return fomatTime
+	return formatTime
 }
