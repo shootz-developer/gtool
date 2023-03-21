@@ -30,6 +30,7 @@ const (
 	UnknowError      = 30003 // 未知错误
 	UnknowOwner      = 30004 // 不是球馆管理员返回码
 	InfoNotMatch     = 30005 // 信息不匹配
+	ModelIsExist     = 30006 // 该类型已存在
 )
 
 // 返回4xxxx -> json错误
@@ -42,4 +43,6 @@ const (
 const (
 	HTTPDoReqError  = 80000
 	HTTPNewReqError = 80001
+	HTTPGetError    = 80002
+	HTTPPostError   = 80003
 )
