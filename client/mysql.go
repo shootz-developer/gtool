@@ -48,6 +48,23 @@ func StringHandler(results *sql.Rows) []string {
 	return characters
 }
 
+// NullStringHandler 处理从数据库里查出来的字符串的信息
+func NullStringHandler(results *sql.Rows) []sql.NullString {
+	characters := make([]sql.NullString, 0)
+	for results.Next() {
+		character := sql.NullString{}
+		err := results.Scan(&character.String)
+		if err != nil {
+			log.Printf("Scan string err: [%+v]", err)
+			continue
+		}
+
+		characters = append(characters, character)
+	}
+
+	return characters
+}
+
 // NumberHandler 处理从数据库里查出来的数字的信息
 func NumberHandler(results *sql.Rows) []int {
 	numbers := make([]int, 0)
