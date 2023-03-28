@@ -64,9 +64,9 @@ func QueryBeforeTime(num int, flag string) string {
 	currentTime := time.Now()
 	deal := "-"
 	var m time.Duration
-	if flag == HourTime {
+	if flag == MinuteTime {
 		m, _ = time.ParseDuration(deal + strconv.Itoa(num) + "m")
-	} else if flag == MinuteTime {
+	} else if flag == HourTime {
 		m, _ = time.ParseDuration(deal + strconv.Itoa(num) + "h")
 	} else if flag == SecondTime {
 		m, _ = time.ParseDuration(deal + strconv.Itoa(num) + "s")
@@ -377,4 +377,10 @@ func FormatTime(unformatTime string) string {
 		}
 	}
 	return formatTime
+}
+
+// GenGMTTime 得到GMT格式的时间
+func GenGMTTime(unformatTime string) string {
+	formatTimestamp, _ := time.Parse(Complete, FormatTime(unformatTime))
+	return formatTimestamp.Format("Mon, 02 Jan 2006 15:04:05")
 }
