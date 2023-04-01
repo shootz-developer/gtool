@@ -80,3 +80,12 @@ func NumberHandler(results *sql.Rows) []int {
 	}
 	return numbers
 }
+
+// IsValidString 判断sql里面的数据是否合法
+func IsValidString(nullString sql.NullString) string {
+	if nullString.Valid {
+		return nullString.String
+	}
+
+	return ""
+}
