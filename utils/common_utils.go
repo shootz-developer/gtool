@@ -43,3 +43,13 @@ func GetLimit(pageStr string) int {
 
 	return limit
 }
+
+func NumberConverter(numberStr string, defaultValue int) int {
+	number, err := strconv.Atoi(numberStr)
+	if err != nil {
+		log.Printf("Page string to int err: [%+v]", err)
+		return defaultValue
+	}
+
+	return number
+}
